@@ -46,6 +46,11 @@ markdown_extensions:
 
 nav:
   - Home: index.md
+  - Theory:
+    - Green's Function Formalism: theory/greens-function.md
+    - Hartree-Fock Approximation: theory/hartree-fock.md
+    - GW Approximation: theory/gw-approximation.md
+    - Discrete Lehmann Representation: theory/dlr.md
   - Reference:
     - Serial Modules: SerialModules.md
     - Class Diagram: SerialClassDiagram.md
