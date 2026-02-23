@@ -1,35 +1,111 @@
+---
+hide:
+  - navigation
+  - toc
+---
+
 # QAssemble
 
-**QAssemble** is a pure-Python quantum simulation package for calculating electronic properties of materials using diagrammatic many-body perturbation theory. Built entirely with the Python standard library and a minimal set of well-established scientific packages — no compiled extensions or domain-specific frameworks required.
+<div class="hero-section" markdown>
 
-## Why Pure Python?
+<div class="hero-text" markdown>
+
+# QAssemble
+
+**A pure-Python quantum simulation package** for calculating electronic properties of materials using diagrammatic many-body perturbation theory.
+
+Built entirely with the Python standard library and a minimal set of well-established scientific packages — no compiled extensions or domain-specific frameworks required.
+
+[Get Started](index.md#quick-start){ .md-button .md-button--primary }
+[View on GitHub](https://github.com/Mo-Seong-Jun/QAssemble){ .md-button }
+
+</div>
+
+</div>
+
+---
+
+## What is QAssemble?
 
 QAssemble is intentionally implemented in **pure Python**, meaning:
 
-- No C/C++/Fortran extensions beyond what NumPy/SciPy already provide
-- No proprietary or hard-to-install domain-specific libraries
-- Readable, hackable source code — every algorithm is visible and modifiable
-- Easy to install, easy to extend, and easy to understand
+<div class="grid cards" markdown>
 
-All dependencies are standard Python packages installable via `pip`. No additional compilers or external libraries are needed.
+-   :material-language-python: **Pure Python**
 
-## Features
+    ---
 
-- **Methods**:
-    - Tight-Binding (TB) — non-interacting band structure
-    - Hartree-Fock (HF) — mean-field theory (restricted/unrestricted)
-    - GW Approximation (GW) — many-body perturbation theory
-- **Advanced Numerics**:
-    - Discrete Lehmann Representation (DLR) for high-precision imaginary-time ↔ Matsubara frequency transforms
-    - Dyson equation solver for renormalized Green's functions
-    - k-space ↔ real-space Fourier transforms with phase-correct basis handling
-    - High-frequency tail fitting for asymptotic accuracy
-- **Coulomb Interactions**:
-    - Local: Slater-Kanamori, Slater, Kanamori parameterizations
-    - Non-local: Ohno, Ohno-Yukawa, J-threading (JTH)
-- **Parallelization**: MPI-parallelized implementations via `mpi4py` (with graceful serial fallback)
-- **Input/Output**: Python dict-based configuration and HDF5 data storage via `h5py`
-- **Crystal Structure**: Lattice vectors, basis positions, k-point grids, spin-orbit coupling (SOC)
+    No C/C++/Fortran extensions beyond what NumPy/SciPy already provide. No proprietary or hard-to-install domain-specific libraries.
+
+-   :material-eye: **Readable & Hackable**
+
+    ---
+
+    Every algorithm is visible and modifiable. Easy to install, easy to extend, and easy to understand.
+
+-   :material-package-variant: **Easy to Install**
+
+    ---
+
+    All dependencies are standard Python packages installable via `pip`. No additional compilers or external libraries needed.
+
+-   :material-scale-balance: **Open Source**
+
+    ---
+
+    Full source code available on GitHub. Community contributions welcome.
+
+</div>
+
+---
+
+## Methods & Features
+
+<div class="grid cards" markdown>
+
+-   :material-atom: **Electronic Structure Methods**
+
+    ---
+
+    - **Tight-Binding (TB)** — non-interacting band structure
+    - **Hartree-Fock (HF)** — mean-field theory (restricted/unrestricted)
+    - **GW Approximation (GW)** — many-body perturbation theory
+
+    [:octicons-arrow-right-24: Theory](theory/greens-function.md)
+
+-   :material-calculator-variant: **Advanced Numerics**
+
+    ---
+
+    - Discrete Lehmann Representation (DLR)
+    - Dyson equation solver
+    - k-space ↔ real-space Fourier transforms
+    - High-frequency tail fitting
+
+    [:octicons-arrow-right-24: DLR Details](theory/dlr.md)
+
+-   :material-chemical-weapon: **Coulomb Interactions**
+
+    ---
+
+    - **Local**: Slater-Kanamori, Slater, Kanamori
+    - **Non-local**: Ohno, Ohno-Yukawa, J-threading (JTH)
+
+    [:octicons-arrow-right-24: GW Approximation](theory/gw-approximation.md)
+
+-   :material-cpu-64-bit: **Parallelization & I/O**
+
+    ---
+
+    - MPI-parallelized via `mpi4py` (with serial fallback)
+    - Python dict-based configuration
+    - HDF5 data storage via `h5py`
+
+    [:octicons-arrow-right-24: Reference](SerialModules.md)
+
+</div>
+
+---
 
 ## Dependencies
 
@@ -41,20 +117,19 @@ All dependencies are standard Python packages installable via `pip`. No addition
 | [mpi4py](https://mpi4py.readthedocs.io/) | MPI parallelization |
 | [Matplotlib](https://matplotlib.org/) | Plotting |
 
+---
+
 ## Installation
 
-Clone the repository:
+Clone the repository and install dependencies:
 
 ```bash
 git clone https://github.com/Mo-Seong-Jun/QAssemble.git
 cd QAssemble
-```
-
-Install dependencies:
-
-```bash
 pip install numpy scipy h5py mpi4py matplotlib
 ```
+
+---
 
 ## Quick Start
 
@@ -114,17 +189,19 @@ Control = {
 
 ### 2. Run
 
-Serial:
+=== "Serial"
 
-```bash
-python3 src/QuantumAssemble.py
-```
+    ```bash
+    python3 src/QuantumAssemble.py
+    ```
 
-Parallel (MPI):
+=== "Parallel (MPI)"
 
-```bash
-mpirun -n <num_processors> python3 src/QuantumAssemble.py
-```
+    ```bash
+    mpirun -n <num_processors> python3 src/QuantumAssemble.py
+    ```
+
+---
 
 ## Directory Structure
 
@@ -139,7 +216,34 @@ QAssemble/
 └── docs/                       # Documentation
 ```
 
-For deeper documentation, see:
+---
 
-- [Serial Modules](SerialModules.md) — module-by-module reference
-- [Class Diagram](SerialClassDiagram.md) — composition and dependency diagrams
+## Documentation
+
+<div class="grid cards" markdown>
+
+-   :material-book-open-variant: **Theory**
+
+    ---
+
+    Background on Green's functions, Hartree-Fock, GW, and DLR.
+
+    [:octicons-arrow-right-24: Theory Section](theory/greens-function.md)
+
+-   :material-file-document-outline: **Serial Modules**
+
+    ---
+
+    Module-by-module reference for the serial implementation.
+
+    [:octicons-arrow-right-24: Serial Modules](SerialModules.md)
+
+-   :material-sitemap: **Class Diagram**
+
+    ---
+
+    Composition and dependency diagrams for the codebase.
+
+    [:octicons-arrow-right-24: Class Diagram](SerialClassDiagram.md)
+
+</div>
