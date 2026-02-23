@@ -1,21 +1,24 @@
 site_name: QAssemble
-site_description: A Python-based quantum simulation package for diagrammatic expansion methods.
-site_author: Seongjun Mo
+site_url: https://Mo-Seong-Jun.github.io/QAssemble/
+site_description: >
+  A pure-Python quantum simulation package for calculating electronic
+  properties of materials using diagrammatic many-body perturbation theory.
+site_author: Mo Seong Jun
 
-site_url: https://mo-seong-jun.github.io/QAssemble/
+repo_name: Mo-Seong-Jun/QAssemble
 repo_url: https://github.com/Mo-Seong-Jun/QAssemble
 
 theme:
   name: material
   palette:
     - scheme: default
-      primary: teal
+      primary: indigo
       accent: indigo
       toggle:
         icon: material/brightness-7
         name: Switch to dark mode
     - scheme: slate
-      primary: teal
+      primary: indigo
       accent: indigo
       toggle:
         icon: material/brightness-4
@@ -24,57 +27,27 @@ theme:
     - navigation.tabs
     - navigation.sections
     - navigation.top
+    - search.highlight
     - content.code.copy
-    - content.code.annotate
 
 markdown_extensions:
-  - admonition
-  - attr_list
-  - md_in_html
-
-  
-  - pymdownx.arithmatex:
-      generic: true
-
-  
   - pymdownx.highlight:
       anchor_linenums: true
-      line_spans: __span
-      pygments_lang_class: true
-  - pymdownx.inlinehilite
-
-  
-  - pymdownx.snippets:
-      check_paths: true
-      base_path:
-        - docs
-        - .
-
-  
   - pymdownx.superfences:
       custom_fences:
         - name: mermaid
           class: mermaid
           format: !!python/name:pymdownx.superfences.fence_code_format
-
-extra_javascript:
-  - javascripts/mathjax.js
-  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
-
-plugins:
-  - search
+  - pymdownx.inlinehilite
+  - admonition
+  - tables
+  - toc:
+      permalink: true
 
 nav:
   - Home: index.md
-  - Architecture:
-      - Serial Class Diagram: SerialClassDiagram.md
-      - Serial Module Reference: SerialModules.md
-  - Implementation:
-      - Serial:
-          - Logic (QuantumAssemble.py): implementation/serial/logic.md
-          - Core (CorrelationFunction.py): implementation/serial/core.md
-          - Lattice (FLatDyn.py): implementation/serial/lattice.md
-      - MPI:
-          - Manager (MPIManager.py): implementation/mpi/manager.md
+  - Reference:
+    - Serial Modules: SerialModules.md
+    - Class Diagram: SerialClassDiagram.md
 
-copyright: Copyright © 2024 Seongjun Mo
+docs_dir: docs
