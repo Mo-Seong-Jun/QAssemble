@@ -1,0 +1,80 @@
+site_name: QAssemble
+site_description: A Python-based quantum simulation package for diagrammatic expansion methods.
+site_author: Seongjun Mo
+
+site_url: https://mo-seong-jun.github.io/QAssemble/
+repo_url: https://github.com/Mo-Seong-Jun/QAssemble
+
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: teal
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: teal
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - content.code.copy
+    - content.code.annotate
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+
+  
+  - pymdownx.arithmatex:
+      generic: true
+
+  
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+
+  
+  - pymdownx.snippets:
+      check_paths: true
+      base_path:
+        - docs
+        - .
+
+  
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+
+extra_javascript:
+  - javascripts/mathjax.js
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+
+plugins:
+  - search
+
+nav:
+  - Home: index.md
+  - Architecture:
+      - Serial Class Diagram: SerialClassDiagram.md
+      - Serial Module Reference: SerialModules.md
+  - Implementation:
+      - Serial:
+          - Logic (QuantumAssemble.py): implementation/serial/logic.md
+          - Core (CorrelationFunction.py): implementation/serial/core.md
+          - Lattice (FLatDyn.py): implementation/serial/lattice.md
+      - MPI:
+          - Manager (MPIManager.py): implementation/mpi/manager.md
+
+copyright: Copyright © 2024 Seongjun Mo
