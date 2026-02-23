@@ -24,27 +24,30 @@ from .utility.Dyson import Dyson
 # sys.path.append(qapath+'/src/QAssemble/modules')
 # import QAFort
 
-class FLatDyn(object):
-    def __init__(self,crystal : Crystal, dlr : DLR) -> object:
-        self.crystal = crystal
-        self.dlr = dlr
+class FLatDyn(Crystal, DLR):
+    def __init__(self, control : dict) -> object:
+        
+        Crystal.__init__(self, control['cry'])
+        DLR.__init__(self, control['ft'])
+        
         self.mappingidx = None
         self._fermion_phase_cache = None
-    
+
+        
     def _get_fermion_phase(self) -> np.ndarray:
         if self._fermion_phase_cache is not None:
             return self._fermion_phase_cache
 
-        norb = len(self.crystal.find)
-        nk = len(self.crystal.kpoint)
+        norb = len(self.find)
+        nk = len(self.kpoint)
         phase = np.empty((norb, norb, nk), dtype=np.complex128)
 
-        for irk, kvec in enumerate(self.crystal.kpoint):
+        for irk, kvec in enumerate(self.kpoint):
             for iorb in range(norb):
-                a, _ = self.crystal.FAtomOrb(iorb)
+                a, _ = self.FAtomOrb(iorb)
                 for jorb in range(norb):
-                    b, _ = self.crystal.FAtomOrb(jorb)
-                    delta = self.crystal.basisf[a, :] - self.crystal.basisf[b, :]
+                    b, _ = self.FAtomOrb(jorb)
+                    delta = self.basisf[a, :] - self.basisf[b, :]
                     phase[iorb, jorb, irk] = np.exp(2.0j * np.pi * np.dot(kvec, delta))
 
         self._fermion_phase_cache = phase
@@ -76,7 +79,7 @@ class FLatDyn(object):
         ns = ftau.shape[2]
         nk = ftau.shape[3]
         ntau = ftau.shape[4]
-        nfreq = len(self.dlr.omega)
+        nfreq = len(self.omega)
         ff = np.zeros((norb,norb,ns,nk,nfreq),dtype=np.complex128,order='F')
         tempmat = np.zeros((ntau), dtype=np.complex128, order='F')
 
@@ -85,7 +88,7 @@ class FLatDyn(object):
                 
                 for jorb, iorb in itertools.product(range(norb), repeat=2):
                     tempmat = ftau[iorb, jorb, js, ik]
-                    tempmat2 = self.dlr.FT2F(tempmat)
+                    tempmat2 = self.FT2F(tempmat)
                     ff[iorb, jorb, js, ik] = tempmat2
 
         return ff
@@ -96,7 +99,7 @@ class FLatDyn(object):
         ns = ff.shape[2]
         nk = ff.shape[3]
         nfreq = ff.shape[4]
-        ntau = len(self.dlr.tauF)
+        ntau = len(self.tauF)
 
         ftau = np.zeros((norb,norb,ns,nk,ntau),dtype=np.complex128,order='F')
         tempmat = np.zeros((nfreq), dtype=np.complex128, order='F')
@@ -105,7 +108,7 @@ class FLatDyn(object):
             for js in range(ns):
                 for jorb, iorb in itertools.product(range(norb), repeat=2):
                     tempmat = ff[iorb, jorb, js, ik]
-                    tempmat2 = self.dlr.FF2T(tempmat)
+                    tempmat2 = self.FF2T(tempmat)
                     ftau[iorb, jorb, js, ik] = tempmat2
 
         return ftau
@@ -134,9 +137,9 @@ class FLatDyn(object):
     
     def K2R(self,matk : np.ndarray, rkgrid : list = None) -> np.ndarray:
 
-        rkvec = self.crystal.kpoint
+        rkvec = self.kpoint
         if rkgrid == None:
-            rkgrid = self.crystal.rkgrid
+            rkgrid = self.rkgrid
 
         phases = self._get_fermion_phase()
         norb = matk.shape[0]
@@ -156,7 +159,7 @@ class FLatDyn(object):
     
     def R2K(self, matr : np.ndarray) -> np.ndarray:
 
-        rkgrid = self.crystal.rkgrid
+        rkgrid = self.rkgrid
 
         norb = matr.shape[0]
         ns = matr.shape[2]
@@ -176,7 +179,7 @@ class FLatDyn(object):
     
     def R2mR(self) -> list: # move to crystal
 
-        rkvec = self.crystal.kpoint
+        rkvec = self.kpoint
 
         mrkvec = np.array(1.0-rkvec,dtype=float)
 

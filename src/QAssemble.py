@@ -1,12 +1,7 @@
-#!/usr/bin/env python3.9
+#!/usr/bin/env python
 import copy
 import datetime
-import gc
-import importlib
-import json
 import os
-import string
-import subprocess
 import sys
 import time
 import h5py
@@ -41,7 +36,7 @@ import h5py
 # ensure_module("mpi4py")
 # ensure_module("mpi4py_fft", "mpi4py-fft")
 
-from QAssemble.Serial.CorrelationFunction import CorrelationFunction
+from QAssemble.CorrelationFunction import CorrelationFunction
 
 
 class Run:

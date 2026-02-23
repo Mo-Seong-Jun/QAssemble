@@ -5,23 +5,22 @@ from .Common import Common
 
 
 class DLR(object):
-    def __init__(self, ft: dict = None) -> object:
-        # self.T = ft.get('T',300) #ft['T']
-        # self.beta = ft['beta']
-        if "T" not in ft:
-            self.beta = ft["beta"]
+    def __init__(self, **kwargs) -> object:
+        
+        if "T" not in kwargs:
+            self.beta = kwargs["beta"]
             self.T = 1 / (self.beta * 8.6173303 * 10**-5)
 
-        elif "beta" not in ft:
-            self.T = ft["T"]
+        elif "beta" not in kwargs:
+            self.T = kwargs["T"]
             self.beta = 1 / (self.T * 8.6173303 * 10**-5)
         else:
-            self.T = ft["T"]
-            self.beta = ft["beta"]
-        self.cutoff = ft.get("cutoff", 10.0)
-        self.eps = ft.get("eps", 1e-15)
+            self.T = kwargs["T"]
+            self.beta = kwargs["beta"]
+        self.cutoff = kwargs.get("cutoff", 10.0)
+        self.eps = kwargs.get("eps", 1e-15)
         self.lambF = (self.beta / np.pi * self.cutoff - 1) / 2
-        self.lambB = self.beta * self.cutoff / (2 * np.pi)  
+        self.lambB = self.beta * self.cutoff / (2 * np.pi) * 2  
         
         dF = dlr(lamb=self.lambF, eps=self.eps, dense_imfreq=False)
         dB = dlr(lamb=self.lambB, eps=self.eps, xi=1, dense_imfreq=False)
@@ -33,6 +32,8 @@ class DLR(object):
         self.tauB = dB.get_tau(self.beta)
         self.omega = dF.get_matsubara_frequencies(self.beta).imag
         self.nu = dB.get_matsubara_frequencies(self.beta).imag
+
+        return None
 
     def TauUniform(self) -> np.ndarray:
         ntau = int((self.beta / np.pi * self.cutoff - 1) / 2) * 2
