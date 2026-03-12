@@ -1,5 +1,5 @@
 site_name: QAssemble
-site_url: https://Mo-Seong-Jun.github.io/QAssemble/
+site_url: https://qassemble.org/
 site_description: >
   A pure-Python quantum simulation package for calculating electronic
   properties of materials using diagrammatic many-body perturbation theory.
@@ -24,7 +24,7 @@ theme:
         icon: material/brightness-4
         name: Switch to light mode
   features:
-    - navigation.sections
+    - navigation.tabs
     - navigation.top
     - navigation.indexes
     - search.highlight
@@ -53,16 +53,28 @@ markdown_extensions:
       emoji_generator: !!python/name:material.extensions.emoji.to_svg
   - admonition
   - pymdownx.details
+  - pymdownx.arithmatex:
+      generic: true
   - tables
   - attr_list
   - md_in_html
   - toc:
       permalink: true
 
+extra_css:
+  - stylesheets/extra.css
+
+extra_javascript:
+  - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
+
 nav:
   - Home: index.md
-  - Theory:
+  - Getting Started:
+    - Installation: getting-started/installation.md
+    - Quick Start: getting-started/quickstart.md
+  - Basic Theory:
     - Green's Function Formalism: theory/greens-function.md
+    - Hamiltonian: theory/hamiltonian.md
     - Hartree-Fock Approximation: theory/hartree-fock.md
     - GW Approximation: theory/gw-approximation.md
     - Discrete Lehmann Representation: theory/dlr.md
