@@ -1,5 +1,5 @@
 site_name: QAssemble
-site_url: https://qassemble.org/
+site_url: https://www.qassemble.org/
 site_description: >
   A pure-Python quantum simulation package for calculating electronic
   properties of materials using diagrammatic many-body perturbation theory.
